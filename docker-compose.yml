@@ -1,0 +1,192 @@
+services:
+  # Base de datos PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    container_name: segurosflex_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: segurosflex
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - segurosflex_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d segurosflex"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  # Microservicio de Beneficiarios
+  beneficiarios:
+    build:
+      context: ./backend/beneficiarios
+      dockerfile: DockerFile
+    container_name: segurosflex_beneficiarios
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+      - DB_HOST=postgres  # Cambio: usar nombre del servicio
+      - DB_PORT=5432
+      - DB_NAME=segurosflex
+      - DB_USER=postgres
+      - DB_PASSWORD=admin123
+      - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend/beneficiarios/uploads:/usr/src/app/uploads
+    networks:
+      - segurosflex_network
+    restart: unless-stopped
+
+  # Microservicio de Personal y Gestión
+  personal-gestion:
+    build:
+      context: ./backend/personal-gestion
+      dockerfile: DockerFile
+    container_name: segurosflex_personal_gestion
+    ports:
+      - "4001:4001"
+    environment:
+      - NODE_ENV=development
+      - PORT=4001
+      - DB_HOST=postgres  # Cambio: usar nombre del servicio
+      - DB_PORT=5432
+      - DB_NAME=segurosflex
+      - DB_USER=postgres
+      - DB_PASSWORD=admin123
+      - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - segurosflex_network
+    restart: unless-stopped
+
+  # Microservicio de Presupuesto y Pagos
+  presupuesto-pagos:
+    build:
+      context: ./backend/presupuesto-pagos
+      dockerfile: DockerFile
+    container_name: segurosflex_presupuesto_pagos
+    ports:
+      - "4002:4002"
+    environment:
+      - NODE_ENV=development
+      - PORT=4002
+      - DB_HOST=postgres  # Cambio: usar nombre del servicio
+      - DB_PORT=5432
+      - DB_NAME=segurosflex
+      - DB_USER=postgres
+      - DB_PASSWORD=admin123
+      - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - segurosflex_network
+    restart: unless-stopped
+
+  # Microservicio de Talleres y Proveedores
+  talleres-provedores:
+    build:
+      context: ./backend/talleres-provedores
+      dockerfile: DockerFile
+    container_name: segurosflex_talleres_provedores
+    ports:
+      - "4003:4003"
+    environment:
+      - NODE_ENV=development
+      - PORT=4003
+      - DB_HOST=postgres  # Cambio: usar nombre del servicio
+      - DB_PORT=5432
+      - DB_NAME=segurosflex
+      - DB_USER=postgres
+      - DB_PASSWORD=admin123
+      - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend/talleres-provedores/uploads:/usr/src/app/uploads
+    networks:
+      - segurosflex_network
+    restart: unless-stopped
+
+  # Microservicio de Security
+  security:
+    build:
+      context: ./backend/security
+      dockerfile: Dockerfile
+    container_name: segurosflex_security
+    ports:
+      - "4004:4004"
+    environment:
+      - NODE_ENV=development
+      - PORT=4004
+      - DB_HOST=postgres  # Cambio: usar nombre del servicio
+      - DB_PORT=5432
+      - DB_NAME=segurosflex
+      - DB_USER=postgres
+      - DB_PASSWORD=admin123
+      - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - segurosflex_network
+    restart: unless-stopped
+
+  # Frontend (Cliente React)
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: segurosflex_client
+    ports:
+      - "3000:80"
+    environment:
+      - REACT_APP_API_URL=http://localhost:4000
+      - REACT_APP_BENEFICIARIOS_URL=http://localhost:4000
+      - REACT_APP_PERSONAL_URL=http://localhost:4001
+      - REACT_APP_PRESUPUESTO_URL=http://localhost:4002
+      - REACT_APP_TALLERES_URL=http://localhost:4003
+      - REACT_APP_SECURITY_URL=http://localhost:4004
+    depends_on:
+      - beneficiarios
+      - personal-gestion
+      - presupuesto-pagos
+      - talleres-provedores
+      - security
+    networks:
+      - segurosflex_network
+    restart: unless-stopped
+
+# Definición de volúmenes
+volumes:
+  postgres_data:
+    driver: local
+
+# Definición de redes
+networks:
+  segurosflex_network:
+    driver: bridge

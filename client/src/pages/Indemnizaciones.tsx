@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 import Modal from "../components/Modal";
 // Endpoint del backend para indemnizaciones
 const API_INDEMNIZACIONES_URL =
-  import.meta.env.VITE_API_INDEMNIZACIONES_URL || "http://localhost:5002/api/indemnizaciones/";
+  import.meta.env.VITE_API_INDEMNIZACIONES_URL || "http://localhost:4002/api/indemnizaciones/";
 const Indemnizaciones = () => {
   interface Indemnizacion {
     siniestroid: number;

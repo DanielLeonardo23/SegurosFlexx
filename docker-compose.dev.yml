@@ -1,0 +1,57 @@
+services:
+  # Base de datos PostgreSQL para desarrollo
+  postgres-dev:
+    image: postgres:15-alpine
+    container_name: segurosflex_postgres_dev
+    environment:
+      POSTGRES_DB: segurosflex_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+      - ./backend/security/scriptsecurity.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - segurosflex_dev_network
+
+  # Base de datos MySQL para desarrollo (opcional)
+  mysql-dev:
+    image: mysql:8.0
+    container_name: segurosflex_mysql_dev
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: segurosflex_dev
+      MYSQL_USER: mysql_user
+      MYSQL_PASSWORD: admin123
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_dev_data:/var/lib/mysql
+    networks:
+      - segurosflex_dev_network
+
+  # Redis para caché (opcional)
+  redis-dev:
+    image: redis:7-alpine
+    container_name: segurosflex_redis_dev
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_dev_data:/data
+    networks:
+      - segurosflex_dev_network
+
+# Definición de volúmenes para desarrollo
+volumes:
+  postgres_dev_data:
+    driver: local
+  mysql_dev_data:
+    driver: local
+  redis_dev_data:
+    driver: local
+
+# Definición de redes para desarrollo
+networks:
+  segurosflex_dev_network:
+    driver: bridge

@@ -6,7 +6,7 @@ import Modal from "../components/Modal";
 import Navbar from "../components/Navbar";
 
 const API_TALLERES_URL =
-  import.meta.env.VITE_API_TALLERES_URL || "http://localhost:5001/api/talleres";
+  import.meta.env.VITE_API_TALLERES_URL || "http://localhost:4003/api/talleres";
 
 const Talleres = () => {
   const [talleres, setTalleres] = useState<any[]>([]);

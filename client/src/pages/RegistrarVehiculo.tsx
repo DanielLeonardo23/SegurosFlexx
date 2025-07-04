@@ -29,7 +29,7 @@ const RegistrarVehiculo = () => {
     try {
       console.log("Obteniendo BeneficiarioID para UsuarioID:", user?.UsuarioID);
   
-      const response = await apiClient.get(`/api/beneficiarios/user/${user?.UsuarioID}/beneficiario`);
+      const response = await apiClient.get<any>(`/api/beneficiarios/user/${user?.UsuarioID}/beneficiario`);
       console.log("Respuesta completa de la API:", response.data);
   
       // Verifica si la respuesta contiene el BeneficiarioID
@@ -84,7 +84,7 @@ const RegistrarVehiculo = () => {
     console.log("📤 Enviando datos al backend:", requestData);
   
     try {
-      const response = await axios.post("https://segurosflexbeneficiarios.onrender.com/api/vehiculo", requestData);
+      const response = await axios.post<any>("https://segurosflexbeneficiarios.onrender.com/api/vehiculo", requestData);
       setMessage(" Vehículo registrado exitosamente.");
       setFormData({
         placa: '',

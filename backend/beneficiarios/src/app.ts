@@ -19,8 +19,17 @@ const app = express();
 
 // Middlewares
 const corsOptions = {
-  origin: ['https://seguros-flex.vercel.app'], // Permitir solo el frontend desplegado
-  methods: 'GET, POST, PUT, DELETE',
+  origin: [
+    'https://seguros-flex.vercel.app', // Frontend desplegado
+    'http://localhost:3000',           // Frontend local
+    'http://localhost:5173',           // Vite dev server
+    'http://127.0.0.1:3000',          // Alternativa localhost
+    'http://127.0.0.1:5173'           // Alternativa localhost Vite
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept'],
+  credentials: true,
+  optionsSuccessStatus: 200 // Para soportar navegadores legacy
 };
 
 

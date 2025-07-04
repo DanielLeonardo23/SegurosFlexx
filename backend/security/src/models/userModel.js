@@ -18,7 +18,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 // Función para buscar un usuario por su correo electrónico
 const findUserByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { rows } = yield db_1.default.query('SELECT UsuarioID, Nombre, Apellido, Email, Password, Rol FROM usuario WHERE Email = $1 LIMIT 1', [email]);
+        const { rows } = yield db_1.default.query('SELECT usuarioid as UsuarioID, nombre as Nombre, apellido as Apellido, email as Email, password as Password, rol as Rol FROM usuario WHERE email = $1 LIMIT 1', [email]);
         // Si no se encuentra el usuario, retornamos null
         if (rows.length === 0) {
             return null;
@@ -36,7 +36,7 @@ exports.findUserByEmail = findUserByEmail;
 const createUser = (user) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Llamada al procedimiento almacenado para crear el usuario
-        yield db_1.default.query('INSERT INTO usuario (Nombre, Apellido, Email, Password, Rol) VALUES ($1, $2, $3, $4, $5)', [user.Nombre, user.Apellido, user.Email, user.Password, user.Rol]);
+        yield db_1.default.query('INSERT INTO usuario (nombre, apellido, email, password, rol) VALUES ($1, $2, $3, $4, $5)', [user.Nombre, user.Apellido, user.Email, user.Password, user.Rol]);
     }
     catch (error) {
         console.error('Error al crear el usuario:', error);
@@ -60,7 +60,7 @@ exports.savePasswordResetToken = savePasswordResetToken;
 // Función para buscar un token de recuperación
 const findUserByEmail2 = (email) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { rows } = yield db_1.default.query('SELECT UsuarioID, Nombre, Apellido, Email, Password, Rol FROM usuario WHERE Email = $1 LIMIT 1', [email]);
+        const { rows } = yield db_1.default.query('SELECT usuarioid, nombre, apellido, email, password, rol FROM usuario WHERE email = $1 LIMIT 1', [email]);
         // Si no se encuentra el usuario, retornamos null
         if (rows.length === 0) {
             return null;
@@ -89,7 +89,7 @@ exports.findPasswordResetToken = findPasswordResetToken;
 const updateUserPassword = (usuarioid, newPassword) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const hashedPassword = yield bcrypt_1.default.hash(newPassword, 10);
-        yield db_1.default.query("UPDATE usuario SET Password = $1 WHERE UsuarioID = $2", [hashedPassword, usuarioid]);
+        yield db_1.default.query("UPDATE usuario SET password = $1 WHERE usuarioid = $2", [hashedPassword, usuarioid]);
     }
     catch (error) {
         console.error("Error al actualizar la contraseña:", error);

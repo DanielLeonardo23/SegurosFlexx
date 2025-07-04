@@ -23,7 +23,7 @@ export interface User2 {
 export const findUserByEmail = async (email: string): Promise<User | null> => {
   try {
     const { rows } = await pool.query(
-      'SELECT UsuarioID, Nombre, Apellido, Email, Password, Rol FROM usuario WHERE Email = $1 LIMIT 1',
+      'SELECT usuarioid as UsuarioID, nombre as Nombre, apellido as Apellido, email as Email, password as Password, rol as Rol FROM usuario WHERE email = $1 LIMIT 1',
       [email]
     );
 
@@ -45,7 +45,7 @@ export const createUser = async (user: User): Promise<void> => {
   try {
     // Llamada al procedimiento almacenado para crear el usuario
     await pool.query(
-      'INSERT INTO usuario (Nombre, Apellido, Email, Password, Rol) VALUES ($1, $2, $3, $4, $5)',
+      'INSERT INTO usuario (nombre, apellido, email, password, rol) VALUES ($1, $2, $3, $4, $5)',
       [user.Nombre, user.Apellido, user.Email, user.Password, user.Rol]
     );
   } catch (error) {
@@ -76,7 +76,7 @@ export const savePasswordResetToken = async (usuarioid: number, token: string, e
 export const findUserByEmail2 = async (email: string): Promise<User2 | null> => {
   try {
     const { rows } = await pool.query(
-      'SELECT UsuarioID, Nombre, Apellido, Email, Password, Rol FROM usuario WHERE Email = $1 LIMIT 1',
+      'SELECT usuarioid, nombre, apellido, email, password, rol FROM usuario WHERE email = $1 LIMIT 1',
       [email]
     );
 
@@ -110,7 +110,7 @@ export const findPasswordResetToken = async (token: string) => {
 export const updateUserPassword = async (usuarioid: number, newPassword: string) => {
   try {
     const hashedPassword = await bcrypt.hash(newPassword, 10);
-    await pool.query("UPDATE usuario SET Password = $1 WHERE UsuarioID = $2", [hashedPassword, usuarioid]);
+    await pool.query("UPDATE usuario SET password = $1 WHERE usuarioid = $2", [hashedPassword, usuarioid]);
   } catch (error) {
     console.error("Error al actualizar la contraseña:", error);
     throw new Error("Error en la base de datos");

@@ -41,7 +41,7 @@ const DetallesReclamacion: React.FC = () => {
     const fetchDetalles = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
+        const response = await axios.get<any>(
           `${API_RECLAMACIONES_URL}/${id}/detalles`
         );
         setReclamacion(response.data);

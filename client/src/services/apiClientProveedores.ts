@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // ✅ Definir la URL base para el backend de proveedores
-const API_PROVEEDORES_URL = import.meta.env.VITE_API_PROVEEDORES_URL || "http://localhost:5001/api/proveedores";
+const API_PROVEEDORES_URL = import.meta.env.VITE_API_PROVEEDORES_URL || "http://localhost:4003/api/proveedores";
 
 const apiClientProveedores = axios.create({
   baseURL: API_PROVEEDORES_URL,

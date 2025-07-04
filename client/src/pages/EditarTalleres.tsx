@@ -9,9 +9,9 @@ import axios from "axios";
 import Modal from "../components/Modal";
 
 const API_TALLERES_URL =
-  import.meta.env.VITE_API_TALLERES_URL || "http://localhost:5001/api/talleres";
+  import.meta.env.VITE_API_TALLERES_URL || "http://localhost:4003/api/talleres";
 const API_PROVEEDORES_URL =
-  import.meta.env.VITE_API_PROVEEDORES_URL || "http://localhost:5001/api/proveedores";
+  import.meta.env.VITE_API_PROVEEDORES_URL || "http://localhost:4003/api/proveedores";
 
 const EditarTaller = () => {
   const navigate = useNavigate();
@@ -26,6 +26,15 @@ const EditarTaller = () => {
     id_proveedor: number;
     nombre_proveedor: string;
     tipo_proveedor?: string; // Asegúrate de que exista en tu base de datos si vas a filtrar por tipo
+  }
+
+  interface Taller {
+    nombre: string;
+    direccion: string;
+    capacidad: string;
+    estado: string;
+    telefono: string;
+    proveedores?: {proveedor_id: number}[];
   }
 
   const [alert, setAlert] = useState<AlertType | null>(null);
@@ -52,11 +61,11 @@ const EditarTaller = () => {
     const fetchData = async () => {
       try {
         // 1) Obtener proveedores
-        const proveedoresResponse = await axios.get(API_PROVEEDORES_URL);
+        const proveedoresResponse = await axios.get<Proveedor[]>(API_PROVEEDORES_URL);
         setProveedores(proveedoresResponse.data);
 
         // 2) Obtener los datos del taller a editar
-        const tallerResponse = await axios.get(`${API_TALLERES_URL}/${id}`);
+        const tallerResponse = await axios.get<Taller>(`${API_TALLERES_URL}/${id}`);
         const data = tallerResponse.data;
 
         // Llenar el formulario con los datos del taller

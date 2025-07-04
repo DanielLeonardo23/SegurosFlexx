@@ -5,7 +5,7 @@ import Alert from "../components/Alert";
 import Navbar from "../components/Navbar"; // Importar el Navbar
 import axios from "axios"; // Asegúrate de importar axios
 
-const API_PROVEEDORES_URL = import.meta.env.VITE_API_PROVEEDORES_URL || "http://localhost:5001/api/proveedores";
+const API_PROVEEDORES_URL = import.meta.env.VITE_API_PROVEEDORES_URL || "http://localhost:4003/api/proveedores";
 
 const RegistrarProveedor = () => {
   const navigate = useNavigate();
@@ -61,8 +61,8 @@ const RegistrarProveedor = () => {
         const fileFormData = new FormData();
         fileFormData.append("image", file); // "image" es el campo que espera el backend
 
-        const response = await axios.post(
-          "https://segurosflextalleresproveedores.onrender.com/upload",  // URL del servidor para subir archivos
+        const response = await axios.post<{secure_url: string}>(
+          "http://localhost:4003/upload",  // URL del servidor para subir archivos
           fileFormData,
           { headers: { "Content-Type": "multipart/form-data" } }
         );

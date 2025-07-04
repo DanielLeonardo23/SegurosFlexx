@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
+import { Elements as StripeElements } from '@stripe/react-stripe-js';
 import CheckoutForm from '../components/CheckoutForm';
 import { FaShieldAlt } from 'react-icons/fa';
 import apiClient from '../services/apiClient';
@@ -27,7 +27,7 @@ const Policies = () => {
     setSelectedPolicy(policy);
 
     try {
-      const response = await apiClient.post('/api/pagos/create-payment-intent', {
+      const response = await apiClient.post<any>('/api/pagos/create-payment-intent', {
         amount: getAmountForPolicy(policy),
       });
 
@@ -131,13 +131,13 @@ const Policies = () => {
             {/* Formulario de pago */}
             <div className="bg-black p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold text-gray-700 mb-4">Detalles de Pago</h3>
-              <Elements stripe={stripePromise}>
+              <StripeElements stripe={stripePromise}>
                 <CheckoutForm
                   clientSecret={paymentIntent}
                   policy={selectedPolicy}
                   onSuccess={handlePaymentSuccess} // Pasamos el callback aquí
                 />
-              </Elements>
+              </StripeElements>
             </div>
           </div>
         )}

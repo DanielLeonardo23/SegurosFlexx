@@ -35,7 +35,7 @@ const MantenerBeneficiarios = () => {
   useEffect(() => {
     const fetchBeneficiarios = async () => {
       try {
-        const response = await axios.get("https://segurosflexbeneficiarios.onrender.com/api/beneficiarios");
+        const response = await axios.get<any>("https://segurosflexbeneficiarios.onrender.com/api/beneficiarios");
         const data = response.data;
         setBeneficiarios(data);
         setFilteredBeneficiarios(data);
@@ -55,7 +55,7 @@ const MantenerBeneficiarios = () => {
     }
 
     try {
-      const response = await apiClient.get(`/api/beneficiarios/validar/${searchdni}`);
+      const response = await apiClient.get<any>(`/api/beneficiarios/validar/${searchdni}`);
       setFilteredBeneficiarios(response.data);  // Actualiza la lista de beneficiarios con los datos obtenidos
     } catch (error) {
       console.error("Error al buscar beneficiarios:", error);

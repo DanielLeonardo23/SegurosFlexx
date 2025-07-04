@@ -65,7 +65,7 @@ const FormularioSiniestro: React.FC<FormularioSiniestroProps> = ({ onSubmit }) =
     });
 
     try {
-      const response = await axios.post("https://segurosflexbeneficiarios.onrender.com/upload", formData, {
+      const response = await axios.post<any>("https://segurosflexbeneficiarios.onrender.com/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

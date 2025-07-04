@@ -31,7 +31,7 @@ const ValidarReclamacion: React.FC = () => {
     const fetchDocumentos = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${API_RECLAMACIONES_URL}/${id}/detalles`);
+        const response = await axios.get<any>(`${API_RECLAMACIONES_URL}/${id}/detalles`);
         setDocumentos(response.data.documentos); // Asumiendo que recibes los documentos en esta estructura
       } catch (error) {
         setAlert({ type: "error", message: "No se pudieron cargar los documentos" });

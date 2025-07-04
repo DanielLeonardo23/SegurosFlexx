@@ -35,7 +35,7 @@ const BeneficiarioPerfil = () => {
 
     const fetchBeneficiarios = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/beneficiarios");
+        const response = await axios.get<Beneficiario[]>("http://localhost:4000/api/beneficiarios");
         const beneficiarios: Beneficiario[] = response.data;
         const beneficiarioEncontrado = beneficiarios.find((b) => b.usuarioid === user.UsuarioID);
 
@@ -88,8 +88,8 @@ const BeneficiarioPerfil = () => {
     };
 
     try {
-        const response = await axios.put(
-          `http://localhost:3000/api/beneficiarios/${beneficiario.beneficiarioid}`,
+        const response = await axios.put<{message: string}>(
+          `http://localhost:4000/api/beneficiarios/${beneficiario.beneficiarioid}`,
           datosActualizados,
           { headers: { "Content-Type": "application/json" } }
         );

@@ -17,7 +17,7 @@ const Dashboard = () => {
 
     const fetchUserRole = async () => {
       try {
-        const response = await apiClient.get(`/api/beneficiarios/user/${user.UsuarioID}/role`);
+        const response = await apiClient.get<any>(`/api/beneficiarios/user/${user.UsuarioID}/role`);
         setUserRole(response.data.role);
       } catch (error) {
         console.error("Error al obtener el rol del usuario:", error);

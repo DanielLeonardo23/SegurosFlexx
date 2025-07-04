@@ -17,7 +17,7 @@ const PersonalDashboard = () => {
   useEffect(() => {
     const fetchBeneficiarios = async () => {
       try {
-        const response = await apiClient.get("/api/beneficiarios");
+        const response = await apiClient.get<any>("/api/beneficiarios");
         setBeneficiariosData(response.data);
       } catch (error) {
         console.error("Error al obtener los beneficiarios");
@@ -26,7 +26,7 @@ const PersonalDashboard = () => {
 
     const fetchPolizas = async () => {
       try {
-        const response = await apiClient.get("/api/polizas");
+        const response = await apiClient.get<any>("/api/polizas");
         setPolizasData(response.data);
       } catch (error) {
         console.error("Error al obtener las pólizas");

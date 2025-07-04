@@ -17,7 +17,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 // Usamos la clave secreta de Stripe, cargada desde las variables de entorno
 const stripe = new stripe_1.default(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: '2025-01-27.acacia',
+    apiVersion: '2025-02-24.acacia',
 });
 // Controlador para crear el Payment Intent
 const createPaymentIntent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

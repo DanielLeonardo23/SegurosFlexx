@@ -1,34 +1,35 @@
+// Cargar variables de entorno desde .env
+import dotenv from 'dotenv';
+dotenv.config({ path: '../../.env' });
+
 import app from "./app";
-import pool from "./config/db";
+import pool from "./config/db"; // Esto ejecutará la conexión automática con reintentos
 
 const PORT = process.env.PORT || 3000;
 
-pool.connect()
-  .then(async (client) => {
-    console.log("Conectado a la base de datos PostgreSQL");
+// La conexión a la base de datos se maneja automáticamente en db.ts
+// Aquí solo iniciamos el servidor
+console.log(`🚀 Iniciando servidor en puerto ${PORT}...`);
 
-    // Consulta para obtener las tablas disponibles
+app.listen(PORT, () => {
+  console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
+  
+  // Opcional: mostrar tablas disponibles después de que la conexión esté establecida
+  setTimeout(async () => {
     try {
+      const client = await pool.connect();
       const result = await client.query(
         "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"
       );
-
-      console.log("Tablas disponibles en la base de datos:");
+      
+      console.log("\n📊 Tablas disponibles en la base de datos:");
       result.rows.forEach((row: any) => {
-        console.log(`- ${row.table_name}`); // Mostrar los nombres de las tablas
+        console.log(`  - ${row.table_name}`);
       });
+      client.release();
     } catch (error) {
-      console.error("Error al obtener las tablas:", error);
-    } finally {
-      client.release(); // Liberar la conexión al pool
+      console.log("ℹ️  Las tablas se mostrarán cuando la conexión esté establecida");
     }
-
-    // Iniciar el servidor
-    app.listen(PORT, () => {
-      console.log(`Servidor corriendo en http://localhost:${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error("Error al conectar a la base de datos:", err);
-  });
+  }, 2000); // Esperar 2 segundos para que la conexión esté lista
+});
 

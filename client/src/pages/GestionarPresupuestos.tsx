@@ -5,8 +5,8 @@ import Alert from "../components/Alert";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 
-const API_PRESUPUESTO_URL = "https://segurosflexpresupuestopagos.onrender.com/api/presupuesto-pagos"; // 🔗 Cambiar por la URL de la API http://localhost:5002
-//const API_PRESUPUESTO_URL="http://localhost:5002/api/presupuesto-pagos"
+const API_PRESUPUESTO_URL = "http://localhost:4002/api/presupuesto-pagos"; // 🔗 URL local correcta
+//const API_PRESUPUESTO_URL = "https://segurosflexpresupuestopagos.onrender.com/api/presupuesto-pagos"; // URL de producción
 interface AlertType {
   type: "success" | "error";
   message: string;
@@ -27,6 +27,10 @@ interface Presupuesto {
   costo_piezas_mano_obra: number;
 }
 
+interface DocumentosResponse {
+  obtener_documentos?: string;
+}
+
 const GestionarPresupuesto: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -39,9 +43,9 @@ const GestionarPresupuesto: React.FC = () => {
     const fetchData = async () => {
       try {
         const [polizaRes, presupuestoRes, documentosRes] = await Promise.all([
-          axios.get(`${API_PRESUPUESTO_URL}/poliza/${id}`),
-          axios.get(`${API_PRESUPUESTO_URL}/${id}`),
-          axios.get(`${API_PRESUPUESTO_URL}/documentos/${id}`)
+          axios.get<Poliza>(`${API_PRESUPUESTO_URL}/poliza/${id}`),
+          axios.get<Presupuesto>(`${API_PRESUPUESTO_URL}/${id}`),
+          axios.get<DocumentosResponse>(`${API_PRESUPUESTO_URL}/documentos/${id}`)
         ]);
   
         setPoliza(polizaRes.data);

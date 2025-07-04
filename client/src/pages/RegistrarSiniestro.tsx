@@ -167,7 +167,7 @@ const finalDelay = 5000; // El mensaje desaparecerá después de 5 segundos
         fileFormData.append("image", file); // Agregar el archivo al FormData
   
         // Enviar el archivo al servidor
-        const response = await axios.post(
+        const response = await axios.post<any>(
           "https://segurosflexbeneficiarios.onrender.com/upload",
           fileFormData,
           { headers: { "Content-Type": "multipart/form-data" } }
@@ -182,7 +182,7 @@ const finalDelay = 5000; // El mensaje desaparecerá después de 5 segundos
       }
   
       // Enviar la información del siniestro con las URLs de las imágenes
-      const secondResponse = await axios.post(
+      const secondResponse = await axios.post<any>(
         "https://segurosflexbeneficiarios.onrender.com/api/siniestros",
         { ...form, documentos: imageUrls }
       );

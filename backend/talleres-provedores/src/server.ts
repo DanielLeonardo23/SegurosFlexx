@@ -4,7 +4,7 @@ import pool from "./config/db";
 const PORT = process.env.PORT || 5001;
 
 pool.connect()
-  .then(async (client) => {
+  .then(async (client: any) => {
     console.log("Conectado a la base de datos PostgreSQL");
 
     // Consulta para obtener las tablas disponibles
@@ -28,7 +28,7 @@ pool.connect()
       console.log(`Servidor corriendo en http://localhost:${PORT}`);
     });
   })
-  .catch((err) => {
+  .catch((err: any) => {
     console.error("Error al conectar a la base de datos:", err);
   });
 

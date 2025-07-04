@@ -14,7 +14,7 @@ import {
 
 // URL base de la API
 const API_REPORTES_URL =
-  import.meta.env.VITE_API_REPORTES_URL || "http://localhost:5002/api/GenerarReporte";
+  import.meta.env.VITE_API_REPORTES_URL || "http://localhost:4002/api/GenerarReporte";
 
 // Colores para gráficos de pastel
 const defaultPieColors = [

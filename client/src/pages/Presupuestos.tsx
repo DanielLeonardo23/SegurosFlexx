@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 
 //Ruta para manejarlo con vercel y render
 const API_PRESUPUESTOS_URL =
-  import.meta.env.VITE_API_PRESUPUESTOS_URL || "http://localhost:5002/api/presupuesto-pagos";
+  import.meta.env.VITE_API_PRESUPUESTOS_URL || "http://localhost:4002/api/presupuesto-pagos";
 const Presupuestos = () => {
   const [presupuestos, setPresupuestos] = useState<any[]>([]);
   const [filteredPresupuestos, setFilteredPresupuestos] = useState<any[]>([]);

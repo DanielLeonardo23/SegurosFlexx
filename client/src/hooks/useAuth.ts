@@ -36,7 +36,7 @@ export const useAuth = () => {
   const register = async (userData: { Nombre: string; Apellido: string; Email: string; Password: string; ConfirmPassword: string; Telefono: string; DNI: string }) => {
     setLoading(true);
     try {
-      const response = await apiClient.post('/api/beneficiarios', userData); // Cambié la ruta a '/api/beneficiarios'
+      const response = await apiClient.post<any>('/api/beneficiarios', userData); // Cambié la ruta a '/api/beneficiarios'
 
       if (response.data && response.data.message) {
         toast.success(response.data.message); // Usamos toast en lugar de alert

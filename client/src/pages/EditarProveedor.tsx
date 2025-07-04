@@ -5,7 +5,19 @@ import Alert from "../components/Alert";
 import Navbar from "../components/Navbar"; // Importar el Navbar
 import axios from "axios";
 
-const API_PROVEEDORES_URL = import.meta.env.VITE_API_PROVEEDORES_URL || "http://localhost:5001/api/proveedores";
+interface Proveedor {
+  nombre_proveedor: string;
+  direccion: string;
+  telefono_proveedor: string;
+  correo_electronico: string;
+  tipo_proveedor: string;
+  estado_proveedor: string;
+  valoracion: string;
+  notas: string;
+  documentos?: string[];
+}
+
+const API_PROVEEDORES_URL = import.meta.env.VITE_API_PROVEEDORES_URL || "http://localhost:4003/api/proveedores";
 
 const EditarProveedor = () => {
   const navigate = useNavigate();
@@ -29,7 +41,7 @@ const EditarProveedor = () => {
   useEffect(() => {
     const fetchProveedor = async () => {
       try {
-        const response = await axios.get(`${API_PROVEEDORES_URL}/${id}`);
+        const response = await axios.get<Proveedor>(`${API_PROVEEDORES_URL}/${id}`);
         const data = response.data;
 
         setForm({
@@ -97,8 +109,8 @@ const EditarProveedor = () => {
         const fileFormData = new FormData();
         fileFormData.append("image", file);
 
-        const response = await axios.post(
-          "http://localhost:5001/upload", // URL del servidor para subir archivos
+        const response = await axios.post<{secure_url: string}>(
+          "http://localhost:4003/upload", // URL del servidor para subir archivos
           fileFormData,
           { headers: { "Content-Type": "multipart/form-data" } }
         );

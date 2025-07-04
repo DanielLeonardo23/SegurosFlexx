@@ -48,8 +48,8 @@ const AsignarTaller = () => {
     const fetchData = async () => {
       try {
         const [siniestrosResponse, talleresResponse] = await Promise.all([
-          axios.get("https://segurosflexbeneficiarios.onrender.com/api/siniestros"),
-          axios.get("https://segurosflextalleresproveedores.onrender.com/api/talleres"),
+          axios.get<any>("https://segurosflexbeneficiarios.onrender.com/api/siniestros"),
+          axios.get<any>("https://segurosflextalleresproveedores.onrender.com/api/talleres"),
         ]);
         const talleresDisponibles = talleresResponse.data.filter((taller: Taller) => taller.estado !== "Ocupado");
         setSiniestros(siniestrosResponse.data);

@@ -1,0 +1,77 @@
+{
+  "migration_validation": {
+    "timestamp": "2025-07-04T12:18:30.028765",
+    "validator_version": "2.0",
+    "total_tests": 9,
+    "summary": {
+      "passed": 0,
+      "failed": 6,
+      "warnings": 3
+    },
+    "results": [
+      {
+        "test": "Database Existence",
+        "status": "FAIL",
+        "message": "Base de datos 'segurosflex' no encontrada",
+        "details": null,
+        "timestamp": "2025-07-04T12:18:29.486972"
+      },
+      {
+        "test": "Tables Existence",
+        "status": "FAIL",
+        "message": "No se pudieron obtener las tablas",
+        "details": null,
+        "timestamp": "2025-07-04T12:18:29.541539"
+      },
+      {
+        "test": "Data Counts",
+        "status": "FAIL",
+        "message": "No se pudieron obtener las tablas",
+        "details": null,
+        "timestamp": "2025-07-04T12:18:29.598676"
+      },
+      {
+        "test": "Constraints",
+        "status": "WARNING",
+        "message": "No se pudieron verificar las constraints",
+        "details": null,
+        "timestamp": "2025-07-04T12:18:29.674009"
+      },
+      {
+        "test": "Indexes",
+        "status": "WARNING",
+        "message": "No se pudieron verificar los índices",
+        "details": null,
+        "timestamp": "2025-07-04T12:18:29.742121"
+      },
+      {
+        "test": "Charset",
+        "status": "WARNING",
+        "message": "No se pudo verificar el charset de las tablas",
+        "details": null,
+        "timestamp": "2025-07-04T12:18:29.802443"
+      },
+      {
+        "test": "Query Test: Test SELECT básico",
+        "status": "FAIL",
+        "message": "Query falló",
+        "details": null,
+        "timestamp": "2025-07-04T12:18:29.876000"
+      },
+      {
+        "test": "Query Test: Test COUNT total",
+        "status": "FAIL",
+        "message": "Query falló",
+        "details": null,
+        "timestamp": "2025-07-04T12:18:29.958362"
+      },
+      {
+        "test": "Query Test: Test JOIN básico",
+        "status": "FAIL",
+        "message": "Query falló",
+        "details": null,
+        "timestamp": "2025-07-04T12:18:30.027698"
+      }
+    ]
+  }
+}

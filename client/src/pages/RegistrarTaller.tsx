@@ -6,8 +6,8 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import Modal from "../components/Modal"; // Reutilizamos el componente Modal con el mismo estilo
 
-const API_TALLERES_URL = import.meta.env.VITE_API_TALLERES_URL || "http://localhost:5001/api/talleres";
-const API_PROVEEDORES_URL = import.meta.env.VITE_API_PROVEEDORES_URL || "http://localhost:5001/api/proveedores";
+const API_TALLERES_URL = import.meta.env.VITE_API_TALLERES_URL || "http://localhost:4003/api/talleres";
+const API_PROVEEDORES_URL = import.meta.env.VITE_API_PROVEEDORES_URL || "http://localhost:4003/api/proveedores";
 
 const RegistrarTaller = () => {
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ const RegistrarTaller = () => {
   useEffect(() => {
     const fetchProveedores = async () => {
       try {
-        const response = await axios.get(API_PROVEEDORES_URL);
+        const response = await axios.get<Proveedor[]>(API_PROVEEDORES_URL);
         setProveedores(response.data);
       } catch (error) {
         console.error("Error al obtener proveedores", error);

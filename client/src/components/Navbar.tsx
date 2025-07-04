@@ -31,7 +31,7 @@ const Navbar = () => {
       console.log("api beneficiario id");
       console.log("user");
       console.log(user?.UsuarioID);
-      const response = await apiClient.get(`/api/beneficiarios/user/${user?.UsuarioID}/beneficiario`);
+      const response = await apiClient.get<any>(`/api/beneficiarios/user/${user?.UsuarioID}/beneficiario`);
       setBeneficiarioID(response.data.BeneficiarioID);
       console.log(" BeneficiarioID obtenido:", response.data.BeneficiarioID);
       console.log(" fin responde.data")  
@@ -46,7 +46,7 @@ const Navbar = () => {
   const fetchUserRole = async () => {
     try {
       console.log("fecthUserRole");
-      const response = await apiClient.get(`/api/beneficiarios/user/${user?.UsuarioID}/role`);
+      const response = await apiClient.get<any>(`/api/beneficiarios/user/${user?.UsuarioID}/role`);
       setUserRole(response.data.role);
       console.log(response.data.role);
       console.log("fin fecthUserRole");
@@ -88,11 +88,11 @@ const Navbar = () => {
       if (!b_id) return; // Si no obtenemos un BeneficiarioID, no seguimos
   
       // 🔹 Ahora usamos `b_id` correctamente en las solicitudes
-      const polizaRes = await apiClient.get(`/api/beneficiarios/${b_id}/check-poliza`);
+      const polizaRes = await apiClient.get<any>(`/api/beneficiarios/${b_id}/check-poliza`);
       setMissingPoliza(!polizaRes.data.hasPoliza);
       console.log(" Respuesta check-poliza:", polizaRes.data);
   
-      const vehiculoRes = await apiClient.get(`/api/beneficiarios/${b_id}/check-vehiculo`);
+      const vehiculoRes = await apiClient.get<any>(`/api/beneficiarios/${b_id}/check-vehiculo`);
       setMissingVehiculo(!vehiculoRes.data.hasVehiculo);
       console.log(" Respuesta check-vehiculo:", vehiculoRes.data);
   

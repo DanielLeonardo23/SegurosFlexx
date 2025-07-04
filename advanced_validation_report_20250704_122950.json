@@ -1,0 +1,77 @@
+{
+  "migration_validation": {
+    "timestamp": "2025-07-04T12:29:50.125369",
+    "validator_version": "2.0",
+    "total_tests": 9,
+    "summary": {
+      "passed": 5,
+      "failed": 1,
+      "warnings": 3
+    },
+    "results": [
+      {
+        "test": "Database Existence",
+        "status": "PASS",
+        "message": "Base de datos 'segurosflex' existe",
+        "details": null,
+        "timestamp": "2025-07-04T12:29:48.354097"
+      },
+      {
+        "test": "Tables Existence",
+        "status": "WARNING",
+        "message": "Faltan 9 tablas esperadas",
+        "details": "Faltantes: beneficiarios, clientes, contratos, siniestros, pagos, talleres, proveedores, usuarios, roles",
+        "timestamp": "2025-07-04T12:29:48.482202"
+      },
+      {
+        "test": "Data Counts",
+        "status": "FAIL",
+        "message": "Todas las tablas están vacías",
+        "details": null,
+        "timestamp": "2025-07-04T12:29:49.278953"
+      },
+      {
+        "test": "Constraints",
+        "status": "WARNING",
+        "message": "No se pudieron verificar las constraints",
+        "details": null,
+        "timestamp": "2025-07-04T12:29:49.408573"
+      },
+      {
+        "test": "Indexes",
+        "status": "WARNING",
+        "message": "No se pudieron verificar los índices",
+        "details": null,
+        "timestamp": "2025-07-04T12:29:49.569003"
+      },
+      {
+        "test": "Charset",
+        "status": "PASS",
+        "message": "Todas las 5 tablas usan UTF8MB4",
+        "details": null,
+        "timestamp": "2025-07-04T12:29:49.713519"
+      },
+      {
+        "test": "Query Test: Test SELECT básico",
+        "status": "PASS",
+        "message": "Query ejecutada correctamente",
+        "details": "Resultado: 1",
+        "timestamp": "2025-07-04T12:29:49.849755"
+      },
+      {
+        "test": "Query Test: Test COUNT total",
+        "status": "PASS",
+        "message": "Query ejecutada correctamente",
+        "details": "Resultado: 5",
+        "timestamp": "2025-07-04T12:29:49.972426"
+      },
+      {
+        "test": "Query Test: Test JOIN básico",
+        "status": "PASS",
+        "message": "Query ejecutada correctamente",
+        "details": "Resultado: 28",
+        "timestamp": "2025-07-04T12:29:50.123618"
+      }
+    ]
+  }
+}

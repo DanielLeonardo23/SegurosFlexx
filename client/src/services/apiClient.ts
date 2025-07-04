@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 // Configuración base de la API
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/';
 console.log("API_URL:", import.meta.env.VITE_API_URL);
+console.log("Usando API_URL:", API_URL);
 
 
 // Crear la instancia de Axios con configuraciones predeterminadas
@@ -19,6 +20,9 @@ apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token) {
+      if (!config.headers) {
+        config.headers = {};
+      }
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;

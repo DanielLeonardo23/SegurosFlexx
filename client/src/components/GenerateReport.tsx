@@ -8,7 +8,7 @@ const GenerateReport = () => {
   // Función para generar el reporte de beneficiarios
   const generateBeneficiaryReport = async () => {
     try {
-      const response = await apiClient.get('/api/beneficiarios');
+      const response = await apiClient.get<any>('/api/beneficiarios');
       const beneficiarios = response.data;
 
       const workbook = new ExcelJS.Workbook();

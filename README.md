@@ -1,76 +1,127 @@
-# Proyecto Full Stack
+# SegurosFlex - Sistema de Gestión de Seguros
 
-Este es un proyecto full stack que consta de un backend en Node.js y un frontend en React con Vite.
+Sistema de gestión de seguros con arquitectura de microservicios desarrollado con Node.js y React.
 
-## 📂 Estructura del Proyecto
+## 🏗️ Arquitectura
 
-```
-📦 Proyecto
- ┣ 📂 backend         # Código del servidor (Node.js, Express)
- ┃ ┣ 📂 beneficiarios
- ┃ ┣ 📂 personal-gestion
- ┃ ┣ 📂 presupuesto-pagos
- ┃ ┣ 📂 security
- ┃ ┣ 📂 talleres-proveedores
- ┃ ┣ 📜 package.json
- ┃ ┣ 📜 tsconfig.json
- ┣ 📂 client          # Código del frontend (React, Vite)
- ┃ ┣ 📂 public
- ┃ ┣ 📂 src
- ┃ ┣ 📜 index.html
- ┃ ┣ 📜 package.json
- ┃ ┣ 📜 tailwind.config.js
- ┃ ┣ 📜 vite.config.ts
- ┃ ┣ 📜 README.md
- ┗ 📜 .gitignore
-```
+El proyecto está compuesto por los siguientes microservicios:
 
-## 🚀 Tecnologías Utilizadas
+- **Beneficiarios** (Puerto 4000): Gestión de beneficiarios de seguros
+- **Personal-Gestión** (Puerto 4001): Gestión de personal y recursos humanos
+- **Presupuesto-Pagos** (Puerto 4002): Gestión de presupuestos y pagos
+- **Talleres-Proveedores** (Puerto 4003): Gestión de talleres y proveedores
+- **Security** (Puerto 4004): Autenticación y autorización
+- **Cliente React** (Puerto 3000): Frontend de la aplicación
 
-### Backend
-- Node.js
-- Express
-- TypeScript
-- Seguridad con middleware
+## 🐳 Despliegue con Docker
 
-### Frontend
-- React
-- Vite
-- Tailwind CSS
-- ESLint
+### Prerrequisitos
 
-## ⚙️ Instalación
+- Docker
+- Docker Compose
+- Git
 
-1. Clonar el repositorio:
-   ```sh
-   git clone https://github.com/usuario/proyecto.git
-   cd proyecto
+### Instalación y Ejecución
+
+1. **Clonar el repositorio**
+   ```bash
+   git clone [URL_DEL_REPOSITORIO]
+   cd SegurosFlex
    ```
 
-2. Instalar dependencias del backend:
-   ```sh
-   cd backend
-   npm install
+2. **Configurar variables de entorno**
+   ```bash
+   cp .env.example .env
+   ```
+   Edita el archivo `.env` con tus configuraciones específicas.
+
+3. **Ejecutar con Docker (Opción 1 - Scripts automáticos)**
+   
+   **En Windows:**
+   ```cmd
+   start.bat
+   ```
+   
+   **En Linux/MacOS:**
+   ```bash
+   chmod +x start.sh
+   ./start.sh
    ```
 
-3. Instalar dependencias del frontend:
-   ```sh
-   cd ../client
-   npm install
+4. **Ejecutar con Docker (Opción 2 - Manual)**
+   ```bash
+   # Construir las imágenes
+   docker-compose build
+   
+   # Ejecutar los servicios
+   docker-compose up -d
+   
+   # Ver el estado de los servicios
+   docker-compose ps
    ```
 
-## 📌 Uso
+### URLs de Acceso
 
-### Backend
-Para iniciar el backend en modo desarrollo:
-```sh
-cd backend
-npm run dev
+Una vez iniciado el sistema:
+
+- **Frontend**: http://localhost:3000
+- **API Gateway (Nginx)**: http://localhost:80
+- **Microservicios individuales**:
+  - Beneficiarios: http://localhost:4000
+  - Personal/Gestión: http://localhost:4001
+  - Presupuesto/Pagos: http://localhost:4002
+  - Talleres/Proveedores: http://localhost:4003
+  - Security: http://localhost:4004
+
+### Bases de Datos
+
+- **PostgreSQL**: localhost:5432
+  - Usuario: postgres
+  - Contraseña: admin123
+  - Base de datos: segurosflex
+
+- **MySQL**: localhost:3306
+  - Usuario: mysql_user
+  - Contraseña: admin123
+  - Base de datos: segurosflex
+
+## 🛠️ Comandos Útiles
+
+### Gestión de Contenedores
+
+```bash
+# Ver logs de todos los servicios
+docker-compose logs
+
+# Ver logs de un servicio específico
+docker-compose logs beneficiarios
+
+# Seguir logs en tiempo real
+docker-compose logs -f
+
+# Reiniciar un servicio específico
+docker-compose restart beneficiarios
+
+# Parar todos los servicios
+docker-compose down
+
+# Parar y eliminar volúmenes
+docker-compose down -v
+
+# Parar y eliminar todo (imágenes, volúmenes, etc.)
+docker-compose down --rmi all -v
 ```
 
-### Frontend
-Para iniciar el frontend:
-```sh
-cd client
-npm run dev
-```
+### Scripts de Utilidad
+
+**Detener servicios:**
+- Windows: `stop.bat`
+- Linux/MacOS: `./stop.sh`
+
+**Detener y limpiar volúmenes:**
+- Windows: `stop.bat --volumes`
+- Linux/MacOS: `./stop.sh --volumes`
+
+**Limpieza completa:**
+- Windows: `stop.bat --clean`
+- Linux/MacOS: `./stop.sh --clean`

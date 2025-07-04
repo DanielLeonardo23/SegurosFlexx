@@ -29,7 +29,7 @@ const ValidarPoliza = () => {
   useEffect(() => {
     const fetchPolizas = async () => {
       try {
-        const response = await apiClient.get('/api/polizas');
+        const response = await apiClient.get<any>('/api/polizas');
         if (Array.isArray(response.data)) {
           setPolizas(response.data);
         } else if (response.data && typeof response.data === 'object') {
@@ -53,7 +53,7 @@ const ValidarPoliza = () => {
     }
 
     try {
-      const response = await apiClient.get(`/api/polizas/validar/${searchDNI}`);
+      const response = await apiClient.get<any>(`/api/polizas/validar/${searchDNI}`);
       setPolizas(response.data);
       setError(null);
     } catch (error) {

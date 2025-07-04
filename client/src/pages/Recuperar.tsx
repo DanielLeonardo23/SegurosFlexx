@@ -13,7 +13,7 @@ const ForgotPassword = () => {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:4000/auth/recuperar", { Email: email });
+      const response = await axios.post<{message: string}>("http://localhost:4004/auth/recuperar", { Email: email });
       setMessage(response.data.message);
     } catch (err: any) {
       setError(err.response?.data?.error || "Error al enviar el correo.");

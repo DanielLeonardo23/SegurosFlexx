@@ -14,8 +14,8 @@ RUN npm cache clean --force
 # Copiar el resto de archivos
 COPY . ./
 
-# Exponer puerto
-EXPOSE 4002
+# Exponer el puerto esperado por Cloud Run
+EXPOSE 8080
 
 # Comando para ejecutar la aplicación
 CMD ["npm", "start"]

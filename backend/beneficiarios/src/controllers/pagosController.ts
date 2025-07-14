@@ -4,8 +4,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Usamos la clave secreta de Stripe, cargada desde las variables de entorno
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+// Usamos la clave secreta de Stripe, cargada directamente aquí
+const stripe = new Stripe('sk_test_51RkahlFL65NjHwNQbqZ2GU4bvnXCj7D0um9XdLDBNn53RES7H6eHzXQpkDNXD6kR0cwBJQA5sZ35wMgf8KKFgdB500yYqDmUm5', {
   apiVersion: '2025-02-24.acacia',
 });
 

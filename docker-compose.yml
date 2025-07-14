@@ -123,6 +123,9 @@ services:
       - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
       - JWT_SECRET=${JWT_SECRET}
+      - CLOUD_NAME=duruqbipv
+      - API_KEY=857167242619486
+      - API_SECRET=POaaiNhqAICv8t91AXXD-ABx-D4
     depends_on:
       postgres:
         condition: service_healthy

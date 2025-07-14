@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const stripe_1 = __importDefault(require("stripe"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-// Usamos la clave secreta de Stripe, cargada desde las variables de entorno
-const stripe = new stripe_1.default(process.env.STRIPE_SECRET_KEY, {
+// Usamos la clave secreta de Stripe, cargada directamente aquí
+const stripe = new stripe_1.default('sk_test_51RkahlFL65NjHwNQbqZ2GU4bvnXCj7D0um9XdLDBNn53RES7H6eHzXQpkDNXD6kR0cwBJQA5sZ35wMgf8KKFgdB500yYqDmUm5', {
     apiVersion: '2025-02-24.acacia',
 });
 // Controlador para crear el Payment Intent

@@ -1,7 +1,7 @@
 import app from "./app";
 import pool from "./config/db";
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 8080;
 
 pool.connect()
   .then(async (client: any) => {
@@ -25,7 +25,7 @@ pool.connect()
 
     // Iniciar el servidor
     app.listen(PORT, () => {
-      console.log(`Servidor corriendo en http://localhost:${PORT}`);
+      console.log(`Servidor iniciado en el puerto ${PORT}`);
     });
   })
   .catch((err: any) => {

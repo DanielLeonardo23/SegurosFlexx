@@ -11,19 +11,7 @@ dotenv.config();
 const app = express();
 
 // Middlewares
-const corsOptions = {
-  origin: [
-    'https://seguros-flex.vercel.app', // Frontend desplegado
-    'http://localhost:3000',           // Frontend local
-    'http://localhost:5173',           // Vite dev server
-    'http://127.0.0.1:3000',          // Alternativa localhost
-    'http://127.0.0.1:5173'           // Alternativa localhost Vite
-  ],
-  methods: 'GET, POST, PUT, DELETE, OPTIONS',
-  credentials: true
-};
-
-app.use(cors(corsOptions));
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

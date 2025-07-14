@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 8080;
 console.log(`🚀 Iniciando servidor en puerto ${PORT}...`);
 
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
+  console.log(`Servidor iniciado en el puerto ${PORT}`);
   
   // Opcional: mostrar tablas disponibles después de que la conexión esté establecida
   setTimeout(async () => {

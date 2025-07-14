@@ -5,14 +5,14 @@ dotenv.config({ path: '../../.env' });
 import app from "./app";
 import pool from "./config/db"; // Esto ejecutará la conexión automática con reintentos
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 // La conexión a la base de datos se maneja automáticamente en db.ts
 // Aquí solo iniciamos el servidor
 console.log(`🚀 Iniciando servidor en puerto ${PORT}...`);
 
 app.listen(PORT, () => {
-  console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
   
   // Opcional: mostrar tablas disponibles después de que la conexión esté establecida
   setTimeout(async () => {

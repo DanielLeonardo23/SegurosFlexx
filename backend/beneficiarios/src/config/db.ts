@@ -43,6 +43,12 @@ pool.on('error', (err: any, client: any) => {
 });
 
 // Iniciar conexión con reintentos
+console.log('Intentando conectar a PostgreSQL con:');
+console.log('  Host:', process.env.DB_HOST);
+console.log('  Puerto:', process.env.DB_PORT);
+console.log('  Base de datos:', process.env.DB_NAME);
+console.log('  Usuario:', process.env.DB_USER);
+console.log('  Contraseña:', process.env.DB_PASSWORD);
 connectWithRetry().catch((err) => {
   console.error('💥 Fallo crítico en la conexión a la base de datos:', err);
 });

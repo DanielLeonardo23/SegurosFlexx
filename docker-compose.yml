@@ -1,26 +1,4 @@
 services:
-  # Base de datos PostgreSQL
-  postgres:
-    image: postgres:15-alpine
-    container_name: segurosflex_postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin123
-      POSTGRES_DB: segurosflex
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - segurosflex_network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d segurosflex"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-    restart: unless-stopped
-
   # Microservicio de Beneficiarios
   beneficiarios:
     build:
@@ -32,20 +10,17 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=4000
-      - DB_HOST=postgres  # Cambio: usar nombre del servicio
+      - DB_HOST=104.154.251.28
       - DB_PORT=5432
       - DB_NAME=segurosflex
       - DB_USER=postgres
-      - DB_PASSWORD=admin123
+      - DB_PASSWORD=Fara123
       - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
       - JWT_SECRET=${JWT_SECRET}
       - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
       - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
       - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
-    depends_on:
-      postgres:
-        condition: service_healthy
     volumes:
       - ./backend/beneficiarios/uploads:/usr/src/app/uploads
     networks:
@@ -63,17 +38,14 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=4001
-      - DB_HOST=postgres  # Cambio: usar nombre del servicio
+      - DB_HOST=104.154.251.28
       - DB_PORT=5432
       - DB_NAME=segurosflex
       - DB_USER=postgres
-      - DB_PASSWORD=admin123
+      - DB_PASSWORD=Fara123
       - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
       - JWT_SECRET=${JWT_SECRET}
-    depends_on:
-      postgres:
-        condition: service_healthy
     networks:
       - segurosflex_network
     restart: unless-stopped
@@ -89,17 +61,14 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=4002
-      - DB_HOST=postgres  # Cambio: usar nombre del servicio
+      - DB_HOST=104.154.251.28
       - DB_PORT=5432
       - DB_NAME=segurosflex
       - DB_USER=postgres
-      - DB_PASSWORD=admin123
+      - DB_PASSWORD=Fara123
       - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
       - JWT_SECRET=${JWT_SECRET}
-    depends_on:
-      postgres:
-        condition: service_healthy
     networks:
       - segurosflex_network
     restart: unless-stopped
@@ -115,10 +84,10 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=4003
-      - DB_HOST=postgres  # Cambio: usar nombre del servicio
+      - DB_HOST=104.154.251.28
       - DB_PORT=5432
       - DB_NAME=segurosflex
-      - DB_USER=postgres
+      - DB_USER=Fara123
       - DB_PASSWORD=admin123
       - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
@@ -126,9 +95,6 @@ services:
       - CLOUD_NAME=duruqbipv
       - API_KEY=857167242619486
       - API_SECRET=POaaiNhqAICv8t91AXXD-ABx-D4
-    depends_on:
-      postgres:
-        condition: service_healthy
     volumes:
       - ./backend/talleres-provedores/uploads:/usr/src/app/uploads
     networks:
@@ -146,15 +112,12 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=4004
-      - DB_HOST=postgres  # Cambio: usar nombre del servicio
+      - DB_HOST=104.154.251.28
       - DB_PORT=5432
       - DB_NAME=segurosflex
       - DB_USER=postgres
-      - DB_PASSWORD=admin123
+      - DB_PASSWORD=Fara123
       - JWT_SECRET=${JWT_SECRET}
-    depends_on:
-      postgres:
-        condition: service_healthy
     networks:
       - segurosflex_network
     restart: unless-stopped
@@ -183,11 +146,6 @@ services:
     networks:
       - segurosflex_network
     restart: unless-stopped
-
-# Definición de volúmenes
-volumes:
-  postgres_data:
-    driver: local
 
 # Definición de redes
 networks:

@@ -17,8 +17,8 @@ COPY . ./
 # Crear directorio para uploads
 RUN mkdir -p uploads
 
-# Exponer puerto
-EXPOSE 4000
+# Exponer el puerto esperado por Cloud Run
+EXPOSE 8080
 
 # Comando para ejecutar la aplicación
 CMD ["npm", "start"]
